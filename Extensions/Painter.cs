@@ -45,5 +45,30 @@ namespace Extensions
             }
             GL.End();
         }
+        public static void Line_3(double x1, double y1, double x2, double y2, double size, double step)
+        {
+            if(step < Distance((x1, y1), (x2, y2)))
+            {
+                MyPoint central = Central((x1, y1), (x2, y2));
+                DrawPoint(central, size);
+                Line_3(x1, y1, central.x, central.y, size, step);
+                Line_3(central.x, central.y, x2, y2, size, step);
+            }
+        }
+        private static void DrawPoint(MyPoint point, double size)
+        {
+            GL.PointSize((float)size);
+            GL.Begin(PrimitiveType.Points);
+            GL.Vertex2(point.x, point.y);
+            GL.End();
+        }
+        private static MyPoint Central(MyPoint point1, MyPoint point2)
+        {
+            return new MyPoint((point1.x + point2.x) / 2, (point1.y + point2.y) / 2);
+        }
+        private static double Distance(MyPoint point1, MyPoint point2)
+        {
+            return Math.Sqrt(Math.Pow(point1.x - point2.x, 2) + Math.Pow(point1.y - point2.y, 2));
+        }
     }
 }

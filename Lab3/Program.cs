@@ -25,11 +25,18 @@ namespace Lab3
             double val = T1CounterPos.Next;
             TruncatedHexagonalPyramid.Draw(val, -val, T1CounterSize.Next, Color.White, Color.Red);
         }
+        //private EllipseHandler EllipseHandler = new EllipseHandler(0, 0, 0.5, 0.7, 0.005, 45, 60);
+        //private Counter T2CounterSize = new Counter(0.2, 0.3, 0.00015, 60, 0.25);
         private EllipseHandler EllipseHandler = new EllipseHandler(0, 0, 0.5, 0.7, 0.005, 45, 60);
-        private Counter T2CounterSize = new Counter(0.2, 0.3, 0.001, 60, 0.2);
+        private Counter T2CounterSize = new Counter(0.2, 0.3, 0.00015, 60, 0.25);
+        // 1.898
+        // 1.989/0.005=397.8
+        // 0.1/    =397.8
         private void Task2()
         {
-            TruncatedHexagonalPyramid.Draw(EllipseHandler.Next, T2CounterSize.Next, Color.White, Color.Red);
+            double scale = T2CounterSize.Next;
+            TruncatedHexagonalPyramid.Draw(EllipseHandler.Next, scale, Color.White, Color.Red);
+            Title = scale.ToString();
         }
     }
     public static class Program
