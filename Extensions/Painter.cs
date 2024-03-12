@@ -23,6 +23,17 @@ namespace Extensions
             }
             GL.End();
         }
+        public static void LineV3(params MyPoint[] points)
+        {
+            GL.LineWidth(LineWidth);
+            GL.Color3(Color3);
+            GL.Begin(PrimitiveType.Lines);
+            foreach (MyPoint point in points)
+            {
+                GL.Vertex3(point.x, point.y, point.z);
+            }
+            GL.End();
+        }
         public static void LineStrip(params MyPoint[] points)
         {
             GL.LineWidth(LineWidth);
@@ -31,6 +42,17 @@ namespace Extensions
             foreach (MyPoint point in points)
             {
                 GL.Vertex2(point.x, point.y);
+            }
+            GL.End();
+        }
+        public static void LineStripV3(params MyPoint[] points)
+        {
+            GL.LineWidth(LineWidth);
+            GL.Color3(Color3);
+            GL.Begin(PrimitiveType.LineStrip);
+            foreach (MyPoint point in points)
+            {
+                GL.Vertex3(point.x, point.y, point.z);
             }
             GL.End();
         }
@@ -45,30 +67,52 @@ namespace Extensions
             }
             GL.End();
         }
+
+        public static void LineLoopV3(params MyPoint[] points)
+        {
+            GL.LineWidth(LineWidth);
+            GL.Color3(Color3);
+            GL.Begin(PrimitiveType.LineLoop);
+            foreach (MyPoint point in points)
+            {
+                GL.Vertex3(point.x, point.y, point.z);
+            }
+            GL.End();
+        }
+
+        public static void TrianglesV3(Color color, MyPoint point1, MyPoint point2, MyPoint point3)
+        {
+            GL.Color3(color);
+            GL.Begin(PrimitiveType.Triangles);
+            GL.Vertex3(point1.x, point1.y, point1.z);
+            GL.Vertex3(point2.x, point2.y, point2.z);
+            GL.Vertex3(point3.x, point3.y, point3.z);
+            GL.End();
+        }
+
         public static void Line_3(double x1, double y1, double x2, double y2, double size, double step)
         {
-            if(step < Distance((x1, y1), (x2, y2)))
+            if(step < Calculator.Distance((x1, y1), (x2, y2)))
             {
-                MyPoint central = Central((x1, y1), (x2, y2));
-                DrawPoint(central, size);
+                MyPoint central = Calculator.Central((x1, y1), (x2, y2));
+                Point(central, size);
                 Line_3(x1, y1, central.x, central.y, size, step);
                 Line_3(central.x, central.y, x2, y2, size, step);
             }
         }
-        private static void DrawPoint(MyPoint point, double size)
+        public static void Point(MyPoint point, double size = 3)
         {
             GL.PointSize((float)size);
             GL.Begin(PrimitiveType.Points);
             GL.Vertex2(point.x, point.y);
             GL.End();
         }
-        private static MyPoint Central(MyPoint point1, MyPoint point2)
+        public static void PointV3(MyPoint point, double size = 3)
         {
-            return new MyPoint((point1.x + point2.x) / 2, (point1.y + point2.y) / 2);
-        }
-        private static double Distance(MyPoint point1, MyPoint point2)
-        {
-            return Math.Sqrt(Math.Pow(point1.x - point2.x, 2) + Math.Pow(point1.y - point2.y, 2));
+            GL.PointSize((float)size);
+            GL.Begin(PrimitiveType.Points);
+            GL.Vertex3(point.x, point.y, point.z);
+            GL.End();
         }
     }
 }
