@@ -80,6 +80,18 @@ namespace Extensions
             GL.End();
         }
 
+        public static void LineLoopV3(List<MyPoint> points)
+        {
+            GL.LineWidth(LineWidth);
+            GL.Color3(Color3);
+            GL.Begin(PrimitiveType.LineLoop);
+            foreach (MyPoint point in points)
+            {
+                GL.Vertex3(point.x, point.y, point.z);
+            }
+            GL.End();
+        }
+
         public static void TrianglesV3(Color color, MyPoint point1, MyPoint point2, MyPoint point3)
         {
             GL.Color3(color);
@@ -90,16 +102,7 @@ namespace Extensions
             GL.End();
         }
 
-        public static void Line_3(double x1, double y1, double x2, double y2, double size, double step)
-        {
-            if(step < Calculator.Distance((x1, y1), (x2, y2)))
-            {
-                MyPoint central = Calculator.Central((x1, y1), (x2, y2));
-                Point(central, size);
-                Line_3(x1, y1, central.x, central.y, size, step);
-                Line_3(central.x, central.y, x2, y2, size, step);
-            }
-        }
+        
         public static void Point(MyPoint point, double size = 3)
         {
             GL.PointSize((float)size);
