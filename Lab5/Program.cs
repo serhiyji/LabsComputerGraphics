@@ -17,6 +17,7 @@ namespace Lab5
             Painter.PointV3((0, 0, 0), 3);
 
             GL.Rotate(0.3, 1, 1, 1);
+            //Tor.DrawPoints(Tora);
             Tor.Draw(Tora);
 
             SwapBuffers();

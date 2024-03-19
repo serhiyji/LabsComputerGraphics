@@ -34,5 +34,13 @@ namespace Lab5
                 }
             }
         }
+
+        public static void DrawPoints(List<List<MyPoint>> data)
+        {
+            foreach (var item in data)
+            {
+                Painter.PointV3(item);
+            }
+        }
     }
 }

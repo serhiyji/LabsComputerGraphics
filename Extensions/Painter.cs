@@ -56,6 +56,17 @@ namespace Extensions
             }
             GL.End();
         }
+        public static void LineStripV3(List<MyPoint> points, Color color)
+        {
+            GL.LineWidth(LineWidth);
+            GL.Color3(color);
+            GL.Begin(PrimitiveType.LineStrip);
+            foreach (MyPoint point in points)
+            {
+                GL.Vertex3(point.x, point.y, point.z);
+            }
+            GL.End();
+        }
         public static void LineLoop(params MyPoint[] points)
         {
             GL.LineWidth(LineWidth);
@@ -115,6 +126,16 @@ namespace Extensions
             GL.PointSize((float)size);
             GL.Begin(PrimitiveType.Points);
             GL.Vertex3(point.x, point.y, point.z);
+            GL.End();
+        }
+        public static void PointV3(List<MyPoint> points, double size = 3)
+        {
+            GL.PointSize((float)size);
+            GL.Begin(PrimitiveType.Points);
+            foreach (MyPoint point in points)
+            {
+                GL.Vertex3(point.x, point.y, point.z);
+            }
             GL.End();
         }
     }
