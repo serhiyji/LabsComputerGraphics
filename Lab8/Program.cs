@@ -10,24 +10,26 @@ namespace Lab8
 {
     public class WindowLab8 : BaseWindow
     {
-        List<MyPoint> points;
         List<List<MyPoint>> data = new List<List<MyPoint>>();
         int min = 0, max = 10, current = 0, rendermax = 0;
         //Counter counter = new Counter(1, 6, 1, 1, 0, true);
+
+        List<MyPoint> pointsT2 = SerpinskisTriangle.GetSerpinskisTriangleRandom(FractalSnowflakeKohi.GetRightTriangle((0, 0), 1.5), 1_000_000, (0, 0));
         public WindowLab8() : base(BaseWindow.DefaultSetupWindow()) 
         {
             data.Add(FractalSnowflakeKohi.GetRightTriangle((0, 0), 1.5));
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    data.Add(FractalSnowflakeKohi.NextIteration(data.LastOrDefault()));
-            //}
-            points = data[0];
         }
         protected override void OnRenderFrame(FrameEventArgs args)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
+
+            // Task1
             //points = data[(int)counter.Next];
-            Painter.LineLoopV3(points);
+            //Painter.LineLoopV3(data[current]);
+
+            // Task2
+            Painter.PointV3(pointsT2, 1);
+
             SwapBuffers();
             base.OnRenderFrame(args);
         }
@@ -41,24 +43,18 @@ namespace Lab8
                     if(current + 1 <= rendermax)
                     {
                         current++;
-                        points = data[current];
                     }
                     else if (current == rendermax && current != max)
                     {
-                        DateTime start = DateTime.UtcNow;
                         data.Add(FractalSnowflakeKohi.NextIteration(data[current]));
-                        DateTime end = DateTime.UtcNow;
-                        Console.WriteLine($"{current} -> {current + 1} {end - start}");
                         current++;
                         rendermax++;
-                        points = data[current];
                     }
                     break;
                 case OpenTK.Windowing.GraphicsLibraryFramework.Keys.Down:
                     if (current != min)
                     {
                         current -= 1;
-                        points = data[current];
                     }
                     break;
             }
